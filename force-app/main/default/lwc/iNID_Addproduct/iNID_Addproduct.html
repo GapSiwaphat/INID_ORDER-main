@@ -1,0 +1,77 @@
+<template>
+    <!-- Product Section -->
+
+    <lightning-quick-action-panel header="Add Product" class="title_product" >
+        <lightning-card class="slds-m-around_medium main_order ">
+
+        <template if:true={showAddProductCard}>
+            <lightning-card class="slds-m-around_medium productCard">
+                <div class="slds-m-around_medium product">
+                    <lightning-input
+                        name="search"
+                        placeholder="Search..."
+                        type="search"
+                        value={searchProductTerm}
+                        onchange={handleInputProduct}
+                        onfocus={handleInputProduct}
+                        onblur={handleBlur}
+                        onkeydown={keyDownDisplayCustomer}
+                    > 
+                    </lightning-input>
+                </div>
+            </lightning-card>           
+        
+            <!-- Show Product_Dropdown -->
+            <template if:true={showProductDropdown}>
+                    <ul class="dropdown-list">
+                        <template for:each={filteredProductOptions} for:item="prod">
+                            <li key={prod.materialCode} data-id={prod.materialCode} data-name={prod.description} onclick={handleSelectProduct}>
+                                {materialCode.id} {prod.description}
+                            </li>
+                        </template>
+                    </ul>
+                </template>
+            </template>
+        </lightning-card>
+
+        <div>
+            <table>
+                <thead style="border: 1px solid black;" >
+                    <tr>
+                        <th>  </th>
+                        <th>Material Code</th>
+                        <th>SKU description</th>
+                        <th>Unit Price</th>
+                        <th>Sale Price</th>
+                        <th>Quantity</th>
+                        <th>Unit</th>
+                        <th>Total</th>
+                        <th>Add on</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={productOption} for:item="product" >
+                        <tr key={product.materialCode} >
+                            <td>checkbox</td>
+                            <td>{product.materialCode}</td>
+                            <td>{product.description}</td>
+                            <td>{product.unitPrice}</td>
+                            <td>{product.salePrice}</td>
+                            <td>{product.quantity}</td>
+                            <td>{product.unit}</td>
+                            <td>{product.salePrice} * {product.quantity}</td>
+                            <td>{product.materialCode}</td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+        
+        <div slot="footer" class="btnProduct">
+            <lightning-button variant="brand" label="Delete" onclick={handleAddProductClick}></lightning-button>
+            <lightning-button variant="Neutral" label="Cancel" onclick={handleAddProductClick}></lightning-button>
+            <lightning-button variant="brand" label="Save" onclick={handleAddProductClick}></lightning-button>
+        </div>
+
+    </lightning-quick-action-panel>
+</template>
